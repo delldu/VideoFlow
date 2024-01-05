@@ -12,6 +12,8 @@ from .sk import SKUpdateBlock6_Deep_nopoolres_AllDecoder
 from .sk2 import SKUpdateBlock6_Deep_nopoolres_AllDecoder2
 
 from torchvision.utils import save_image
+import todos
+import pdb
 
 autocast = torch.cuda.amp.autocast
 
@@ -80,6 +82,7 @@ class BOFNet(nn.Module):
         return up_flow.reshape(N, 2, 8 * H, 8 * W)
 
     def forward(self, images, data={}, flow_init=None):
+        images = images[:, 0:3]
 
         B, N, _, H, W = images.shape
 

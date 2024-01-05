@@ -18,6 +18,8 @@ from utils import frame_utils
 from utils.utils import InputPadder, forward_interpolate
 import itertools
 import imageio
+import todos
+import pdb
 
 def prepare_image(seq_dir):
     print(f"preparing image...")
@@ -32,8 +34,8 @@ def prepare_image(seq_dir):
         img = np.array(img).astype(np.uint8)[..., :3]
         img = torch.from_numpy(img).permute(2, 0, 1).float()
         images.append(img)
-    
-    return torch.stack(images)
+
+    return torch.stack(images) # [10, 3, 436, 1024]
 
 def vis_pre(flow_pre, vis_dir):
 
@@ -75,8 +77,10 @@ def BOF_inference(model, cfg):
     input_images = input_images[None].cuda()
     padder = InputPadder(input_images.shape)
     input_images = padder.pad(input_images)
-    flow_pre, _ = model(input_images, {})
+    flow_pre, _ = model(input_images, {}) # 
     flow_pre = padder.unpad(flow_pre[0]).cpu()
+    # todos.debug.output_var("flow_pre", flow_pre)
+    # tensor [flow_pre] size: [2, 2, 436, 1024], min: -34.304611, max: 27.719576, mean: -0.059822
 
     return flow_pre
 
