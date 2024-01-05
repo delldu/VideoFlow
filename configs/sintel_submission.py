@@ -21,7 +21,7 @@ _CN.model = "VideoFlow_ckpt/BOF_sintel.pth"
 
 
 _CN.BOFNet = CN()
-_CN.BOFNet.pretrain = True
+_CN.BOFNet.pretrain = False
 _CN.BOFNet.cnet = 'twins'
 _CN.BOFNet.fnet = 'twins'
 _CN.BOFNet.gma = 'GMA-SK2'
